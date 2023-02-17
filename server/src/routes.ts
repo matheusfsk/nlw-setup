@@ -64,9 +64,10 @@ export async function appRoutes(app: FastifyInstance) {
       },
     });
 
-    const completedHabits = day?.dayHabits.map((dayHabit) => {
-      return dayHabit.habit_id;
-    });
+    const completedHabits =
+      day?.dayHabits.map((dayHabit) => {
+        return dayHabit.habit_id;
+      }) ?? [];
 
     return {
       possibleHabits,
@@ -127,6 +128,7 @@ export async function appRoutes(app: FastifyInstance) {
   app.get("/summary", async () => {
     //Query mais complexa, mais condicoes, realacionamentos => SQL na mao (RAW)
     // Prisma ORM: RAW SQL => SQLite
+    console.log("antes");
 
     const summary = await prisma.$queryRaw`
     SELECT
@@ -150,6 +152,7 @@ export async function appRoutes(app: FastifyInstance) {
       ) as amount
     FROM days D
     `;
+    console.log("depois");
 
     return summary;
   });
