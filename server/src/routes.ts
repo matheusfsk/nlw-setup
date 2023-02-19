@@ -152,8 +152,6 @@ export async function appRoutes(app: FastifyInstance) {
       ) as amount
     FROM days D
     `;
-    console.log("depois");
-
     return summary;
   });
 }
